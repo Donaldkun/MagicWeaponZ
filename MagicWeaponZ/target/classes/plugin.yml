@@ -1,0 +1,4 @@
+name: MagicWeaponz
+version: '1.0'
+main: Kasteve.donald.magicWeaponz.MagicWeaponz
+api-version: '1.21'
