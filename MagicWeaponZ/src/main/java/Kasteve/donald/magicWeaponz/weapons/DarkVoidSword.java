@@ -17,10 +17,11 @@ import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DarkVoidSword implements Listener {
 
@@ -34,10 +35,8 @@ public class DarkVoidSword implements Listener {
         lore.add(ChatColor.YELLOW + "アビリティ：" + ChatColor.RESET + "" + ChatColor.ITALIC + "Teleport"+ChatColor.YELLOW + " 右クリック");
         lore.add(ChatColor.WHITE + "前方向にテレポートできる");
         lore.add(ChatColor.WHITE + "最大8ブロックテレポート可能！");
-        lore.add(ChatColor.WHITE + "しかし落下ダメージがあるので、");
-        lore.add(ChatColor.WHITE + "サバイバルで使うことは非推奨");
         SwordMeta.setLore(lore);
-        SwordMeta.addEnchant(Enchantment.SHARPNESS,7,true);
+        SwordMeta.addEnchant(Enchantment.SHARPNESS,6,true);
         SwordMeta.setUnbreakable(true);
         Sword.setItemMeta(SwordMeta);
 
@@ -52,12 +51,12 @@ public class DarkVoidSword implements Listener {
     private static ItemStack getVW() {
         ItemStack MC = new ItemStack(Material.FLINT);
         ItemMeta meta = MC.getItemMeta();
+        meta.addEnchant(Enchantment.FORTUNE, 1 ,false);
         meta.setDisplayName(ChatColor.DARK_PURPLE+"虚空の心");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.WHITE + "漆黒にそまった奈落の心。");
         lore.add(ChatColor.WHITE+"テレポート能力を手に入れるために使用される。");
         meta.setLore(lore);
-      //  meta.addEnchant(Enchantment.SHARPNESS,3,true);
         MC.setItemMeta(meta);
 
         return MC;
@@ -71,14 +70,12 @@ public class DarkVoidSword implements Listener {
         lore.add(ChatColor.YELLOW + "アビリティ：" + ChatColor.RESET + "" + ChatColor.ITALIC + "Teleport"+ChatColor.YELLOW + " 右クリック");
         lore.add(ChatColor.WHITE + "前方向にテレポートできる");
         lore.add(ChatColor.WHITE + "最大8ブロックテレポート可能！");
-        lore.add(ChatColor.WHITE + "しかし落下ダメージがあるので、");
-        lore.add(ChatColor.WHITE + "サバイバルで使うことは非推奨");
 
         if (item != null && item.getType() == Material.STONE_SWORD && item.getItemMeta().getLore().equals(lore)) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
-
-                Block block =player.getTargetBlock((Set<Material>) null,  8);
+             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 1, 1));
+                Block block =player.getTargetBlock(null,  8);
                 Location location = block.getLocation();
                 float pitch = player.getEyeLocation().getPitch();
                 float yaw = player.getEyeLocation().getYaw();
@@ -87,6 +84,7 @@ public class DarkVoidSword implements Listener {
                 location.setPitch(pitch);
                 player.teleport (location);
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT,  2, 1);
+                player.setVelocity(new Vector(0, 0, 0));
             }
         }
     }

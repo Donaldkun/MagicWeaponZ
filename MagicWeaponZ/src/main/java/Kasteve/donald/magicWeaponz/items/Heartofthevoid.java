@@ -27,7 +27,7 @@ public class Heartofthevoid implements Listener {
         lore.add(ChatColor.WHITE + "漆黒にそまった奈落の心。");
         lore.add(ChatColor.WHITE+"テレポート能力を手に入れるために使用される。");
         VHMeta.setLore(lore);
-      //  VH.addEnchantment(Enchantment.SHARPNESS,3);
+        VHMeta.addEnchant(Enchantment.FORTUNE, 1 ,true);
         VH.setItemMeta(VHMeta);
 
         ShapedRecipe VHRecipe = new ShapedRecipe(new NamespacedKey(JavaPlugin.getPlugin(MagicWeaponz.class), "Heart_of_the_Void"), VH);
@@ -40,6 +40,7 @@ public class Heartofthevoid implements Listener {
     private static ItemStack getUltimate() {
         ItemStack I = new ItemStack(Material.POLISHED_BLACKSTONE_BUTTON);
         ItemMeta meta = I.getItemMeta();
+        meta.addEnchant(Enchantment.FORTUNE, 1 ,false);
         meta.setDisplayName(ChatColor.DARK_PURPLE+"虚空の欠片");
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.WHITE + "漆黒にそまった奈落の欠片");

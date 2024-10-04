@@ -24,12 +24,12 @@ public class VoidFragment implements Listener {
     ItemStack VH = new ItemStack(Material.POLISHED_BLACKSTONE_BUTTON);
 
     ItemMeta VHMeta = VH.getItemMeta();
+    VHMeta.addEnchant(Enchantment.FORTUNE, 1 ,false);
     VHMeta.setDisplayName(ChatColor.DARK_PURPLE+"虚空の欠片");
     List<String> lore = new ArrayList<>();
     lore.add(ChatColor.WHITE + "漆黒にそまった奈落の欠片");
     lore.add(ChatColor.WHITE+"虚空の心を作成するために使用される");
     VHMeta.setLore(lore);
- //   VH.addUnsafeEnchantment(Enchantment.EFFICIENCY ,1) ;
     VH.setItemMeta(VHMeta);
 
 
